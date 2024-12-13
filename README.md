@@ -8,7 +8,7 @@ This set of scripts was created as I had a dislike for the 20k images I have tha
 You need to have [Ollama](https://ollama.com/download) and at least one LLM (Llava, Gemma, Llama etc.) installed on your system.
 
 
-```
+
 
 ## Ollama Usage
 
