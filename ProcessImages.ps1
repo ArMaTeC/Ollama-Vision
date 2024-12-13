@@ -10,6 +10,7 @@
         [switch]$NoConsole
     )
     
+	
     # Early return if debug logging is disabled
     if ($Level -eq 'Debug' -and $Config.Logging.LogLevel -ne 'Debug') {
         return
