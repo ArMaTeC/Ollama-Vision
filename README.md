@@ -1,7 +1,7 @@
 # Ollama-Vision
 
 A powershell script that uses Ollama and LM Studio models (Llava, Gemma, Llama etc.) to intelligently rename files by their contents
-
+This set of scripts were created as I had a hate for the 20k images i have that were just named DCS00001 DCS00002 DCS00003 and so on. After running this I now have 2006-02-13_00-29-44_People_Nightclub_Laughing_RedDrink_020.jpg 2010-06-30_13-40-56_airfield_planes_cloudy_Photo_0014.jpg
 
 ## Usage
 
