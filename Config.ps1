@@ -22,7 +22,7 @@ $Config = @{
         }
     }
     Logging = @{
-        LogLevel = "Info"
+        LogLevel = "Debug"
     }
     Processing = @{
         PreserveMetadata = $true

@@ -142,7 +142,7 @@ function Get-ExifDateTaken {
                 } else {
                     $ExifDtString = [System.Text.Encoding]::ASCII.GetString($ExifDT.Value).TrimEnd([char]0)
                     try {
-                        $DateTaken = [datetime]::ParseExact($ExifDtString, "yyyy:MM:dd HH:mm:ss", $null)
+                        $DateTaken = [datetime]::ParseExact($ExifDtString, "yyyy:MM:dd HH:mm:ss", [System.Globalization.CultureInfo]::InvariantCulture)
                         Write-Log "DateTimeOriginal extracted: $DateTaken" -Level Debug -Component "EXIF"
                     } catch {
                         Write-Log "Failed to parse EXIF DateTimeOriginal for file '$ImageFile'. Error: $($_.Exception.Message)" -Level Error -Component "EXIF"
@@ -181,10 +181,10 @@ function Get-ExifDateTaken {
         $folderDate = "${year}:${month}:01 00:00:00"
     
         Write-Log "Folder date: $folderDate" -Level Debug -Component "EXIF"
-        if ($DateTaken.ToString("yyyy:MM:dd HH:mm:ss") -eq $today -or $DateTaken.ToString("yyyy:MM:dd HH:mm:ss") -ne $folderDate) {
+        if ($null -eq $DateTaken -or $DateTaken.ToString("yyyy:MM:dd HH:mm:ss") -eq $today -or $DateTaken.ToString("yyyy:MM:dd HH:mm:ss") -ne $folderDate) {
             Write-Log "Creation time is the same as today's date or does not match the folder name. Favoring the folder date." -Level Debug -Component "EXIF"
             try {
-                $DateTaken = [datetime]::ParseExact($folderDate, "yyyy:MM:dd HH:mm:ss", $null)
+                $DateTaken = [datetime]::ParseExact($folderDate, "yyyy:MM:dd HH:mm:ss", [System.Globalization.CultureInfo]::InvariantCulture)
                 Write-Log "Parsed folder date: $DateTaken" -Level Debug -Component "EXIF"
             } catch {
                 Write-Log "Failed to parse folder date for file '$ImageFile'. Error: $($_.Exception.Message)" -Level Error -Component "EXIF"
