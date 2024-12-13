@@ -169,29 +169,29 @@ function Get-ExifDateTaken {
             $FileStream.Close() 
         }
     }
-
-    # Check if the creation time is the same as today's date or does not match the folder name
-    $today = Get-Date -Format "yyyy:MM:dd HH:mm:ss"
-    Write-Log "Today's date: $today" -Level Debug -Component "EXIF"
+    if ($null -eq $DateTaken) {
+        # Check if the creation time is the same as today's date or does not match the folder name
+        $today = Get-Date -Format "yyyy:MM:dd HH:mm:ss"
+        Write-Log "Today's date: $today" -Level Debug -Component "EXIF"
     
-    # Extract the year and month from the folder path
-    $folderPathParts = $Path.Split("\")
-    $year = $folderPathParts[-3]
-    $month = $folderPathParts[-2]
-    $folderDate = "${year}:${month}:01 00:00:00"
+        # Extract the year and month from the folder path
+        $folderPathParts = $Path.Split("\")
+        $year = $folderPathParts[-3]
+        $month = $folderPathParts[-2]
+        $folderDate = "${year}:${month}:01 00:00:00"
     
-    Write-Log "Folder date: $folderDate" -Level Debug -Component "EXIF"
-    if ($null -eq $DateTaken -or $DateTaken.ToString("yyyy:MM:dd HH:mm:ss") -eq $today -or $DateTaken.ToString("yyyy:MM:dd HH:mm:ss") -ne $folderDate) {
-        Write-Log "Creation time is the same as today's date or does not match the folder name. Favoring the folder date." -Level Debug -Component "EXIF"
-        try {
-            $DateTaken = [datetime]::ParseExact($folderDate, "yyyy:MM:dd HH:mm:ss", $null)
-            Write-Log "Parsed folder date: $DateTaken" -Level Debug -Component "EXIF"
-        } catch {
-            Write-Log "Failed to parse folder date for file '$ImageFile'. Error: $($_.Exception.Message)" -Level Error -Component "EXIF"
-            $DateTaken = $null
+        Write-Log "Folder date: $folderDate" -Level Debug -Component "EXIF"
+        if ($DateTaken.ToString("yyyy:MM:dd HH:mm:ss") -eq $today -or $DateTaken.ToString("yyyy:MM:dd HH:mm:ss") -ne $folderDate) {
+            Write-Log "Creation time is the same as today's date or does not match the folder name. Favoring the folder date." -Level Debug -Component "EXIF"
+            try {
+                $DateTaken = [datetime]::ParseExact($folderDate, "yyyy:MM:dd HH:mm:ss", $null)
+                Write-Log "Parsed folder date: $DateTaken" -Level Debug -Component "EXIF"
+            } catch {
+                Write-Log "Failed to parse folder date for file '$ImageFile'. Error: $($_.Exception.Message)" -Level Error -Component "EXIF"
+                $DateTaken = $null
+            }
         }
     }
-
     return $DateTaken
 }
 Function Set-ExifDateTaken {
