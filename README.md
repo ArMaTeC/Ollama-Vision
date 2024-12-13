@@ -26,11 +26,9 @@ ollama run gemma2
 
 ## Params
 
-Currently all config values you can find in Config.ps1. 
+Currently, all config values you can find in Config.ps1. 
 
-```bash
 
-```
 
 
 ## Contribution
