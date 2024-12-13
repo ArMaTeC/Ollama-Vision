@@ -22,7 +22,7 @@ ollama run gemma2
 ```
 3. Open a PowerShell command promt and navigate to the root of your images (Always do a test run on some images you have copied)
 4. Run Run_BatchProcessing.ps1
-```
+
 
 ## Params
 
