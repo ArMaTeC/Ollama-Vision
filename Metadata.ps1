@@ -41,9 +41,9 @@ function Get-ImageMetadata {
         
         foreach ($propId in $Img.PropertyIdList) {
             try {
-                Write-Log "Attempting to get property item for property ID: $propId" -Level Debug -Component "Metadata"
+                #Write-Log "Attempting to get property item for property ID: $propId" -Level Debug -Component "Metadata"
                 $prop = $Img.GetPropertyItem($propId)
-                Write-Log "Property item retrieved successfully for property ID: $propId" -Level Debug -Component "Metadata"
+                #Write-Log "Property item retrieved successfully for property ID: $propId" -Level Debug -Component "Metadata"
                 $value = switch ($prop.Type) {
                     1 { [System.Text.Encoding]::ASCII.GetString($prop.Value).Trim([char]0) }
                     2 { [System.Text.Encoding]::ASCII.GetString($prop.Value).Trim([char]0) }
@@ -62,7 +62,7 @@ function Get-ImageMetadata {
                     Type = $prop.Type
                     Len = $prop.Len
                 }
-                Write-Log "Metadata added for property ID: $propId" -Level Debug -Component "Metadata"
+                #Write-Log "Metadata added for property ID: $propId" -Level Debug -Component "Metadata"
             }
             catch {
                 Write-Log "Failed to read property $propId : $($_.Exception.Message)" -Level Warning -Component "Metadata"

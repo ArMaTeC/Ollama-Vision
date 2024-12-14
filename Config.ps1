@@ -78,7 +78,7 @@ $Config = @{
         FilenameMaxLength = 100
 
         # Define whether to randomize the order of processing
-        RandomizeOrder = $false
+        RandomizeOrder = $true
 
         # Define the maximum number of concurrent files to process
         MaxConcurrentFiles = [Math]::Min($env:NUMBER_OF_PROCESSORS, 8)
