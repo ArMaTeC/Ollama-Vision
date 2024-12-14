@@ -17,8 +17,8 @@ if (-not $Config.API.Models.ImageAnalysis -or -not $Config.API.Models.TextGenera
 }
 
 if ($validationErrors.Count -gt 0) {
-    foreach ($error in $validationErrors) {
-        Write-Log $error -Level Error -Component "Config"
+    foreach ($errors in $validationErrors) {
+        Write-Log $errors -Level Error -Component "Config"
     }
     throw "Configuration validation failed with errors: $($validationErrors -join '; ')"
 }
