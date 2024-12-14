@@ -106,7 +106,7 @@ if (-not $FilenameMaxLength) {
     $FilenameMaxLength = 100
 }
 if (-not $RandomizeOrder) {
-    $RandomizeOrder = $true
+    $RandomizeOrder = $false
 }
 if (-not $MaxConcurrentFiles) {
     $MaxConcurrentFiles = [Math]::Min($env:NUMBER_OF_PROCESSORS, 8)
