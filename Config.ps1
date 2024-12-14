@@ -17,101 +17,101 @@ Write-Log "Initializing circuit Config..." -Level Info -Component "Config"
 
 param (
     [Parameter(Mandatory=$false)]
-    [string]$WorkingDirectory = $true,
+    [string]$WorkingDirectory,
 
     [Parameter(Mandatory=$false)]
-    [string[]]$ExcludedFolders = $true,
+    [string[]]$ExcludedFolders,
 
     [Parameter(Mandatory=$false)]
-    [string[]]$SupportedExtensions = $true,
+    [string[]]$SupportedExtensions,
 
     [Parameter(Mandatory=$false)]
-    [string]$Url = $true,
+    [string]$Url,
 
     [Parameter(Mandatory=$false)]
-    [int]$TimeoutSeconds = $true,
+    [int]$TimeoutSeconds,
 
     [Parameter(Mandatory=$false)]
-    [int]$MaxRetries = $true,
+    [int]$MaxRetries,
 
     [Parameter(Mandatory=$false)]
-    [int]$RetryDelaySeconds = $true,
+    [int]$RetryDelaySeconds,
 
     [Parameter(Mandatory=$false)]
-    [int]$MaxPayloadSizeMB = $true,
+    [int]$MaxPayloadSizeMB,
 
     [Parameter(Mandatory=$false)]
-    [string]$ImageAnalysis = $true,
+    [string]$ImageAnalysis,
 
     [Parameter(Mandatory=$false)]
-    [string]$TextGeneration = $true,
+    [string]$TextGeneration,
 
     [Parameter(Mandatory=$false)]
-    [string]$LogLevel = $true,
+    [string]$LogLevel,
 
     [Parameter(Mandatory=$false)]
-    [bool]$PreserveMetadata = $true,
+    [bool]$PreserveMetadata,
 
     [Parameter(Mandatory=$false)]
-    [int]$FilenameMaxLength = $true,
+    [int]$FilenameMaxLength,
 
     [Parameter(Mandatory=$false)]
-    [bool]$RandomizeOrder = $true,
+    [bool]$RandomizeOrder,
 
     [Parameter(Mandatory=$false)]
-    [int]$MaxConcurrentFiles = $true,
+    [int]$MaxConcurrentFiles,
 
     [Parameter(Mandatory=$false)]
-    [bool]$AddDatePrefix = $true
+    [bool]$AddDatePrefix
 )
 
 # Initialize default values
-if ($true -eq $WorkingDirectory) {
+if (-not $WorkingDirectory) {
     $WorkingDirectory = (Get-Location)
 }
-if ($true -eq $ExcludedFolders) {
+if (-not $ExcludedFolders) {
     $ExcludedFolders = @("renamed", "original")
 }
-if ($true -eq $SupportedExtensions) {
+if (-not $SupportedExtensions) {
     $SupportedExtensions = @(".jpg", ".jpeg", ".png")
 }
-if ($true -eq $Url) {
+if (-not $Url) {
     $Url = "http://localhost:11434/api/generate"
 }
-if ($true -eq $TimeoutSeconds) {
+if (-not $TimeoutSeconds) {
     $TimeoutSeconds = 60
 }
-if ($true -eq $MaxRetries) {
+if (-not $MaxRetries) {
     $MaxRetries = 5
 }
-if ($true -eq $RetryDelaySeconds) {
+if (-not $RetryDelaySeconds) {
     $RetryDelaySeconds = 3
 }
-if ($true -eq $MaxPayloadSizeMB) {
+if (-not $MaxPayloadSizeMB) {
     $MaxPayloadSizeMB = 500
 }
-if ($true -eq $ImageAnalysis) {
+if (-not $ImageAnalysis) {
     $ImageAnalysis = "llama3.2-vision"
 }
-if ($true -eq $TextGeneration) {
+if (-not $TextGeneration) {
     $TextGeneration = "gemma2"
 }
-if ($true -eq $LogLevel) {
+if (-not $LogLevel) {
     $LogLevel = "Debug"
 }
-if ($true -eq $PreserveMetadata) {
+if (-not $PreserveMetadata) {
     $PreserveMetadata = $true
 }
-if ($true -eq $FilenameMaxLength) {
+if (-not $FilenameMaxLength) {
     $FilenameMaxLength = 100
 }
-if ($true -eq $RandomizeOrder) {
+if (-not $RandomizeOrder) {
     $RandomizeOrder = $true
 }
-if ($true -eq $MaxConcurrentFiles) {
+if (-not $MaxConcurrentFiles) {
     $MaxConcurrentFiles = [Math]::Min($env:NUMBER_OF_PROCESSORS, 8)
 }
-if ($true -eq $AddDatePrefix) {
+if (-not $AddDatePrefix) {
     $AddDatePrefix = $true
 }
 $Config = @{
