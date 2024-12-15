@@ -37,8 +37,7 @@ function Test-FileLock {
                         'Microsoft.Photos', 'PhotoViewer', 'ImageGlass', 'IrfanView',
                         'Windows Photo Viewer', 'PhotosApp', 'dllhost',
                         'Photoshop', 'LightRoom', 'Paint', 'mspaint',
-                        'ACDSee', 'FastStone', 'XnView', 'nomacs',
-                        'Explorer'
+                        'ACDSee', 'FastStone', 'XnView', 'nomacs'
                     )
                     
                     $fileName = Split-Path $Item -Leaf
