@@ -1,9 +1,4 @@
-# Define the script directory path
-# This is used to locate the Logging.ps1 script
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
-
-# Import the Logging.ps1 script
-# This script is used for logging operations throughout the application
 . (Join-Path $scriptDir 'Logging.ps1')
 
 # Log the initialization of the Config
@@ -15,105 +10,45 @@ Write-Log "Initializing circuit Config..." -Level Info -Component "Config"
 # Usage examples:
 # .\Run_BatchProcessing.ps1 -WorkingDirectory "C:\Images" -ExcludedFolders "renamed","original" -SupportedExtensions ".jpg",".jpeg",".png" -Url "http://localhost:11434/api/generate" -TimeoutSeconds 60 -MaxRetries 5 -RetryDelaySeconds 3 -MaxPayloadSizeMB 500 -ImageAnalysis "llama3.2-vision" -TextGeneration "gemma2" -LogLevel "Debug" -PreserveMetadata $true -FilenameMaxLength 100 -RandomizeOrder $true -MaxConcurrentFiles 8 -AddDatePrefix $true
 
-param (
-    [Parameter(Mandatory=$false)]
-    [string]$WorkingDirectory,
 
-    [Parameter(Mandatory=$false)]
-    [string[]]$ExcludedFolders,
+# Initialize default values with parameter validation and clear defaults
+$defaultValues = @{
+    WorkingDirectory    = (Get-Location)
+    ExcludedFolders    = @("renamed", "original") 
+    SupportedExtensions = @(".jpg", ".jpeg", ".png")
+    Url                = "http://localhost:11434/api/generate"
+    TimeoutSeconds     = 60
+    MaxRetries         = 5
+    RetryDelaySeconds  = 3
+    MaxPayloadSizeMB   = 500
+    ImageAnalysis      = "llama3.2-vision"
+    TextGeneration     = "gemma2"
+    LogLevel           = "Debug"
+    PreserveMetadata   = $true
+    FilenameMaxLength  = 100
+    RandomizeOrder     = $false
+    MaxConcurrentFiles = [Math]::Min($env:NUMBER_OF_PROCESSORS, 8)
+    AddDatePrefix      = $true
+}
 
-    [Parameter(Mandatory=$false)]
-    [string[]]$SupportedExtensions,
+# Map arguments to variables, using defaults if not provided
+$WorkingDirectory    = if ($args[0]) { $args[0] } else { $defaultValues.WorkingDirectory }
+$ExcludedFolders    = if ($args[1]) { $args[1] } else { $defaultValues.ExcludedFolders }
+$SupportedExtensions = if ($args[2]) { $args[2] } else { $defaultValues.SupportedExtensions }
+$Url                = if ($args[3]) { $args[3] } else { $defaultValues.Url }
+$TimeoutSeconds     = if ($args[4]) { $args[4] } else { $defaultValues.TimeoutSeconds }
+$MaxRetries         = if ($args[5]) { $args[5] } else { $defaultValues.MaxRetries }
+$RetryDelaySeconds  = if ($args[6]) { $args[6] } else { $defaultValues.RetryDelaySeconds }
+$MaxPayloadSizeMB   = if ($args[7]) { $args[7] } else { $defaultValues.MaxPayloadSizeMB }
+$ImageAnalysis      = if ($args[8]) { $args[8] } else { $defaultValues.ImageAnalysis }
+$TextGeneration     = if ($args[9]) { $args[9] } else { $defaultValues.TextGeneration }
+$LogLevel           = if ($args[10]) { $args[10] } else { $defaultValues.LogLevel }
+$PreserveMetadata   = if ($args[11]) { $args[11] } else { $defaultValues.PreserveMetadata }
+$FilenameMaxLength  = if ($args[12]) { $args[12] } else { $defaultValues.FilenameMaxLength }
+$RandomizeOrder     = if ($args[13]) { $args[13] } else { $defaultValues.RandomizeOrder }
+$MaxConcurrentFiles = if ($args[14]) { $args[14] } else { $defaultValues.MaxConcurrentFiles }
+$AddDatePrefix      = if ($args[15]) { $args[15] } else { $defaultValues.AddDatePrefix }
 
-    [Parameter(Mandatory=$false)]
-    [string]$Url,
-
-    [Parameter(Mandatory=$false)]
-    [int]$TimeoutSeconds,
-
-    [Parameter(Mandatory=$false)]
-    [int]$MaxRetries,
-
-    [Parameter(Mandatory=$false)]
-    [int]$RetryDelaySeconds,
-
-    [Parameter(Mandatory=$false)]
-    [int]$MaxPayloadSizeMB,
-
-    [Parameter(Mandatory=$false)]
-    [string]$ImageAnalysis,
-
-    [Parameter(Mandatory=$false)]
-    [string]$TextGeneration,
-
-    [Parameter(Mandatory=$false)]
-    [string]$LogLevel,
-
-    [Parameter(Mandatory=$false)]
-    [bool]$PreserveMetadata,
-
-    [Parameter(Mandatory=$false)]
-    [int]$FilenameMaxLength,
-
-    [Parameter(Mandatory=$false)]
-    [bool]$RandomizeOrder,
-
-    [Parameter(Mandatory=$false)]
-    [int]$MaxConcurrentFiles,
-
-    [Parameter(Mandatory=$false)]
-    [bool]$AddDatePrefix
-)
-
-# Initialize default values
-if (-not $WorkingDirectory) {
-    $WorkingDirectory = (Get-Location)
-}
-if (-not $ExcludedFolders) {
-    $ExcludedFolders = @("renamed", "original")
-}
-if (-not $SupportedExtensions) {
-    $SupportedExtensions = @(".jpg", ".jpeg", ".png")
-}
-if (-not $Url) {
-    $Url = "http://localhost:11434/api/generate"
-}
-if (-not $TimeoutSeconds) {
-    $TimeoutSeconds = 60
-}
-if (-not $MaxRetries) {
-    $MaxRetries = 5
-}
-if (-not $RetryDelaySeconds) {
-    $RetryDelaySeconds = 3
-}
-if (-not $MaxPayloadSizeMB) {
-    $MaxPayloadSizeMB = 500
-}
-if (-not $ImageAnalysis) {
-    $ImageAnalysis = "llama3.2-vision"
-}
-if (-not $TextGeneration) {
-    $TextGeneration = "gemma2"
-}
-if (-not $LogLevel) {
-    $LogLevel = "Debug"
-}
-if (-not $PreserveMetadata) {
-    $PreserveMetadata = $true
-}
-if (-not $FilenameMaxLength) {
-    $FilenameMaxLength = 100
-}
-if (-not $RandomizeOrder) {
-    $RandomizeOrder = $false
-}
-if (-not $MaxConcurrentFiles) {
-    $MaxConcurrentFiles = [Math]::Min($env:NUMBER_OF_PROCESSORS, 8)
-}
-if (-not $AddDatePrefix) {
-    $AddDatePrefix = $true
-}
 $Config = @{
 
     # Define the working directory

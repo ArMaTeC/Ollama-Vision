@@ -31,6 +31,7 @@ function Invoke-LlamaAPI {
             temperature = 0.7
             max_tokens = 500
             top_p = 0.9
+            keep_alive = -1
         }
 
         if ($AdditionalData) {

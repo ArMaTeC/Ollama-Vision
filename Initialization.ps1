@@ -2,6 +2,7 @@ $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
 . (Join-Path $scriptDir 'Logging.ps1')
 . (Join-Path $scriptDir 'Config.ps1')
 
+
 Write-Log "Script initialization starting..." -Level Info -Component "Init"
 
 # Validate configuration

@@ -125,6 +125,9 @@ Requirements:
 5. Start with most important aspect
 6. Include technical specs if relevant
 7. Ensure uniqueness
+8. Remove any random random letter
+9. Describe the image with the keywords provided the best way possible
+10. Keep the ending file exstention format '.$($File.Extension)'
 
 Output JSON: {filename: string}
 "@ `

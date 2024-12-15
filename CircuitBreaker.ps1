@@ -1,6 +1,4 @@
-# Get the directory of the current script
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
-# Import the Logging script
 . (Join-Path $scriptDir 'Logging.ps1')
 
 # Log the initialization of the circuit breaker state
