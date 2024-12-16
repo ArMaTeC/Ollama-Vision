@@ -26,7 +26,7 @@ $defaultValues = @{
     LogLevel           = "Debug"
     PreserveMetadata   = $true
     FilenameMaxLength  = 100
-    RandomizeOrder     = $false
+    RandomizeOrder     = $true
     MaxConcurrentFiles = [Math]::Min($env:NUMBER_OF_PROCESSORS, 8)
     AddDatePrefix      = $true
 }
