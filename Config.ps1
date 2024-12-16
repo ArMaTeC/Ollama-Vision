@@ -26,10 +26,38 @@ $defaultValues = @{
     LogLevel           = "Debug"
     PreserveMetadata   = $true
     FilenameMaxLength  = 100
-    RandomizeOrder     = $true
+    RandomizeOrder     = $false
     MaxConcurrentFiles = [Math]::Min($env:NUMBER_OF_PROCESSORS, 8)
     AddDatePrefix      = $true
 }
+
+# Check if custom config exists and load it
+$customConfigPath = Join-Path $scriptDir 'custom_config.ps1'
+if (Test-Path $customConfigPath) {
+    . $customConfigPath
+    Write-Log "Loaded custom configuration from $customConfigPath" -Level Info -Component "Config"
+}
+
+<# Example custom.ps1 file:
+$defaultValues = @{
+    WorkingDirectory    = "Z:\Photo"
+    ExcludedFolders    = @("renamed", "original") 
+    SupportedExtensions = @(".jpg", ".jpeg", ".png")
+    Url                = "http://localhost:11434/api/generate"
+    TimeoutSeconds     = 60
+    MaxRetries         = 5
+    RetryDelaySeconds  = 3
+    MaxPayloadSizeMB   = 500
+    ImageAnalysis      = "llama3.2-vision"
+    TextGeneration     = "gemma2"
+    LogLevel           = "Debug"
+    PreserveMetadata   = $true
+    FilenameMaxLength  = 100
+    RandomizeOrder     = $true
+    MaxConcurrentFiles = 8
+    AddDatePrefix      = $true
+}
+#>
 
 # Map arguments to variables, using defaults if not provided
 $WorkingDirectory    = if ($args[0]) { $args[0] } else { $defaultValues.WorkingDirectory }
