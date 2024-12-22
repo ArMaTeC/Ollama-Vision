@@ -1,7 +1,7 @@
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
-. (Join-Path $scriptDir 'Initialization.ps1')
-. (Join-Path $scriptDir 'Logging.ps1')
-. (Join-Path $scriptDir 'ImageProcessing.ps1')
+. (Join-Path $scriptDir 'Initialization/Initialization.ps1')
+. (Join-Path $scriptDir 'Logging/Logging.ps1')
+. (Join-Path $scriptDir 'ImageProcessing/ImageProcessing.ps1')
 
 function Test-FileLock {
     [cmdletbinding()]
