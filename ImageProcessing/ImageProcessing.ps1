@@ -1,5 +1,5 @@
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
-. (Join-Path $scriptDir 'Logging.ps1')
+. (Join-Path $scriptDir '..\Logging\Logging.ps1')
 . (Join-Path $scriptDir 'ImageValidation.ps1')
 . (Join-Path $scriptDir 'Metadata.ps1')
 . (Join-Path $scriptDir 'API.ps1')

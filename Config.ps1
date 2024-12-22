@@ -1,5 +1,5 @@
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
-. (Join-Path $scriptDir 'Logging.ps1')
+. (Join-Path $scriptDir 'Logging\Logging.ps1')
 
 # Log the initialization of the Config
 # This log entry is used for debugging and tracking purposes
